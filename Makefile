@@ -2,7 +2,8 @@ NAME = so_long
 
 LIBFT = ./libft/libft.a
 
-SRC = main.c check_map.c errors.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
+SRC = main.c check_map.c errors.c get_next_line/get_next_line.c \
+	get_next_line/get_next_line_utils.c freeing.c
 OBJ := $(SRC:.c=.o)
 
 CFLAGS = -Wall -Wextra -Werror -Ilibft

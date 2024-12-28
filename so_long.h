@@ -6,7 +6,7 @@
 /*   By: hajmoham <hajmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 18:41:46 by hajmoham          #+#    #+#             */
-/*   Updated: 2024/12/27 12:26:22 by hajmoham         ###   ########.fr       */
+/*   Updated: 2024/12/28 13:32:52 by hajmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,5 @@ void	check_elements(t_box *map);
 void    parcing(t_box *map, char **av);
 void	flood_fill(t_box *map, int x, int y);
 
-
-
-void	check_side_walls(t_box *map);
-int	elements_count(t_box *map);
-char **map_dup(t_box *map);
-int locate_player(t_box *map);
-int	valid_map(t_box *map);
-int success_fail(t_box *map);
-void free_map_store(t_box *map);
-void free_map_dup(t_box *map);
 
 #endif

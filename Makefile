@@ -3,11 +3,12 @@ NAME = so_long
 LIBFT = ./libft/libft.a
 
 SRC = main.c check_map.c errors.c get_next_line/get_next_line.c \
-	get_next_line/get_next_line_utils.c freeing.c
+	get_next_line/get_next_line_utils.c 
+
 OBJ := $(SRC:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror -Ilibft
-LDFLAGS = -g3
+CFLAGS = -Wall -Wextra -Werror -Ilibft -g3
+# LDFLAGS = -g3
 
 all: $(NAME)
 

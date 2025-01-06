@@ -6,7 +6,7 @@
 /*   By: hajmoham <hajmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 18:41:46 by hajmoham          #+#    #+#             */
-/*   Updated: 2025/01/06 15:42:19 by hajmoham         ###   ########.fr       */
+/*   Updated: 2025/01/06 20:12:22 by hajmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ typedef struct s_box
     int			collectables;
     int			dup_collectables;
     int			exit;
+	int			moves;
+	int			direction;
     int			dup_exit;
     int			player_x;
     int			player_y;
@@ -67,5 +69,13 @@ void	check_elements(t_box *map);
 void    parcing(t_box *map, char **av);
 void	flood_fill(t_box *map, int x, int y);
 void    cleanup(t_box *map);
+void	create_album(t_box *game);
+void	render_elements(t_box *game);
+char	**get_images();
+void	check_images(char **imgs, t_box *game);
+void	rendermap(t_box *game);
+int		close_game(t_box *game);
+void	move(int new_x, int new_y, t_box *game);
+int		handle_keys(int key, t_box *game);
 
 #endif

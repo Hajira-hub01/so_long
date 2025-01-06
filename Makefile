@@ -6,16 +6,17 @@
 #    By: hajmoham <hajmoham@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 13:12:27 by hajmoham          #+#    #+#              #
-#    Updated: 2025/01/06 12:45:27 by hajmoham         ###   ########.fr        #
+#    Updated: 2025/01/06 20:12:53 by hajmoham         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
 LIBFT = ./libft/libft.a
+PRINTF = ./Printf/libftprintf.a
 MINILBX = ./mlx/libmlx.a
 
-SRC = main.c check_map.c errors.c get_next_line/get_next_line.c \
+SRC = main.c check_map.c errors.c movement.c image.c get_next_line/get_next_line.c \
 	get_next_line/get_next_line_utils.c
 OBJ := $(SRC:.c=.o)
 
@@ -28,11 +29,14 @@ all: $(NAME)
 %.o: %.c
 	cc $(CFLAGS) -c $< -o $@
 
-$(NAME): $(LIBFT) $(MINILBX) $(OBJ)
-	cc $(OBJ) $(LIBFT) $(MINILBX) $(MLXFLAGS) -o $(NAME)
+$(NAME): $(LIBFT) $(PRINTF) $(MINILBX) $(OBJ)
+	cc $(OBJ) $(LIBFT) $(PRINTF) $(MINILBX) $(MLXFLAGS) -o $(NAME)
 
 $(LIBFT):
 	make -C ./libft
+	
+$(PRINTF):
+	make -C ./Printf
 
 $(MINILBX):
 	make -C ./mlx

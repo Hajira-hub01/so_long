@@ -6,26 +6,11 @@
 /*   By: hajmoham <hajmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:28:54 by hajmoham          #+#    #+#             */
-/*   Updated: 2025/01/04 16:54:13 by hajmoham         ###   ########.fr       */
+/*   Updated: 2025/01/06 15:55:26 by hajmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-// void	initialize(t_box *map)
-// {
-// 	map->b_map = 0;
-// 	map->l_map = 0;
-// 	map->player = -1;
-// 	map->collectables = -1;
-// 	map->exit = -1;
-// 	map->dup_collectables = 0;
-// 	map->dup_exit = 0;
-// 	map->player_x = -1;
-// 	map->player_y = -1;
-// 	map->map_store = NULL;
-// 	map->map_dup = NULL;
-// }
 
 /// @brief updates the height/length of the map (l_map) and checks empty lines from top and middle
 void	count_lines(t_box *map, char *av)
@@ -163,14 +148,6 @@ void	flood_fill(t_box *map, int x, int y)
 		map->dup_collectables--;
 	if (map->map_dup[x][y] == 'E')
 		map->dup_exit--;
-	// {
-	// 	if (!map->dup_collectables)
-	// 	{
-	// 		map->dup_exit = 1;
-	// 		map->map_dup[x][y] = 'H';
-	// 	}
-	// 	return ;
-	// }
 	map->map_dup[x][y] = 'H';
 	flood_fill(map, x + 1, y);
 	flood_fill(map, x - 1, y);

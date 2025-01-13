@@ -6,17 +6,14 @@
 /*   By: hajmoham <hajmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 16:05:31 by hajmoham          #+#    #+#             */
-/*   Updated: 2025/01/06 20:14:11 by hajmoham         ###   ########.fr       */
+/*   Updated: 2025/01/13 20:08:15 by hajmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-# define LADY	"Hajira"
-# define BOY	"Tarek"
 
 void	initialize(t_box *map)
 {
-	// dont forget to remove these ^-^
 	int	i;
 
 	i = -1;
@@ -25,9 +22,11 @@ void	initialize(t_box *map)
 	map->b_map = 0;
 	map->l_map = 0;
 	map->player = 0;
-	map->collectables = 0;
+	map->collectibles = 0;
 	map->exit = 0;
-	map->dup_collectables = 0;
+	map->exit_x = 0;
+	map->exit_y = 0;
+	map->dup_collectibles = 0;
 	map->dup_exit = 1;
 	map->player_x = 0;
 	map->player_y = 0;
@@ -37,17 +36,47 @@ void	initialize(t_box *map)
 	map->map_dup = NULL;
 }
 
+void	get_p_and_e(t_box *map)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	x = 0;
+	while (y < map->l_map)
+	{
+		x = 0;
+		while (x < map->b_map)
+		{
+			if (map->map_dup[y][x] == PLAYER)
+			{
+				map->player_x = x;
+				map->player_y = y;
+			}
+			if (map->map_dup[y][x] == EXIT)
+			{
+				map->exit_x = x;
+				map->exit_y = y;
+				map->map_dup[y][x] = WALL;
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
 void parcing(t_box *map, char **av)
 {
 	store_map(av, map);
     if_rectangular(map);
     check_walls(map);
     check_elements(map);
-    if (map->player != 1 || map->exit != 1 || map->collectables < 1)
+	get_p_and_e(map);
+    if (map->player != 1 || map->exit != 1 || map->collectibles < 1)
 		error_print("Wrong elements count\n", map);
-    map->dup_collectables = map->collectables;
+    map->dup_collectibles = map->collectibles;
     flood_fill(map, map->player_x, map->player_y);
-    if (map->dup_collectables || map->dup_exit)
+    if (map->dup_collectibles || map->dup_exit)
 		error_print("No valid path found\n", map);
 }
 
@@ -59,12 +88,6 @@ int main(int ac, char **av)
 	chk_ber(ac, av, &game);
 	check_images(get_images(), &game);
     parcing(&game, av);
-
-	// direction flag
-
-	// solve exit problem
-
-	// game section
 	game.mlx = mlx_init();
 	game.mlx_win = mlx_new_window(game.mlx, game.b_map * 64, game.l_map * 64, "so_long");
 	create_album(&game);

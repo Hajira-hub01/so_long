@@ -6,13 +6,14 @@
 /*   By: hajmoham <hajmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:28:54 by hajmoham          #+#    #+#             */
-/*   Updated: 2025/01/06 15:55:26 by hajmoham         ###   ########.fr       */
+/*   Updated: 2025/01/13 19:25:36 by hajmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-/// @brief updates the height/length of the map (l_map) and checks empty lines from top and middle
+/// @brief updates the height/length of the map (l_map) and checks empty
+// lines from top and middle
 void	count_lines(t_box *map, char *av)
 {
 	char	*line;
@@ -41,7 +42,8 @@ void	count_lines(t_box *map, char *av)
 		error_print("Empty map file\n", map);
 }
 
-/// @brief this is a function that stores the map in the struct (map_store and map_dup)
+/// @brief this is a function that stores the map in the struct
+// (map_store and map_dup)
 void	store_map(char **av, t_box *map)
 {
 	int	fd;
@@ -120,15 +122,11 @@ void	check_elements(t_box *map)
 		while (map->map_store[i][j])
 		{
 			if (map->map_store[i][j] == 'P')
-			{
 				map->player++;
-				map->player_x = j;
-				map->player_y = i;
-			}
 			else if (map->map_store[i][j] == 'E')
 				map->exit++;
 			else if (map->map_store[i][j] == 'C')
-				map->collectables++;
+				map->collectibles++;
 			else if (map->map_store[i][j] != '1' && map->map_store[i][j] != '0')
 				error_print("Map contains other characters!!\n", map);
 			j++;
@@ -140,17 +138,39 @@ void	check_elements(t_box *map)
 /// @brief  checks if the pathway of map is valid
 void	flood_fill(t_box *map, int x, int y)
 {
-	if (x < 0 || y < 0 || x >= map->l_map || y >= map->b_map)
+	if (x == map->exit_x && y == map->exit_y)
+	{
+		map->dup_exit = 0;
 		return ;
-	if (map->map_dup[x][y] == '1' || map->map_dup[x][y] == 'H')
+	}
+	if (x < 0 || y < 0 || y >= map->l_map || x >= map->b_map)
 		return ;
-	if (map->map_dup[x][y] == 'C')
-		map->dup_collectables--;
-	if (map->map_dup[x][y] == 'E')
+	if (map->map_dup[y][x] == '1' || map->map_dup[y][x] == 'H')
+		return ;
+	if (map->map_dup[y][x] == 'C')
+		map->dup_collectibles--;
+	if (map->map_dup[y][x] == 'E')
 		map->dup_exit--;
-	map->map_dup[x][y] = 'H';
+	map->map_dup[y][x] = 'H';
 	flood_fill(map, x + 1, y);
 	flood_fill(map, x - 1, y);
 	flood_fill(map, x, y + 1);
 	flood_fill(map, x, y - 1);
 }
+	
+// void	flood_fill(t_box *map, int x, int y)
+// {
+// 	if (x < 0 || y < 0 || x >= map->l_map || y >= map->b_map)
+// 		return ;
+// 	if (map->map_dup[x][y] == '1' || map->map_dup[x][y] == 'H')
+// 		return ;
+// 	if (map->map_dup[x][y] == 'C')
+// 		map->dup_collectibles--;
+// 	if (map->map_dup[x][y] == 'E')
+// 		map->dup_exit--;
+// 	map->map_dup[x][y] = 'H';
+// 	flood_fill(map, x + 1, y);
+// 	flood_fill(map, x - 1, y);
+// 	flood_fill(map, x, y + 1);
+// 	flood_fill(map, x, y - 1);
+// }

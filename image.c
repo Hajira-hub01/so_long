@@ -6,33 +6,36 @@
 /*   By: hajmoham <hajmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 20:03:44 by hajmoham          #+#    #+#             */
-/*   Updated: 2025/01/06 20:07:23 by hajmoham         ###   ########.fr       */
+/*   Updated: 2025/01/13 11:10:37 by hajmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 void	create_album(t_box *game)
-{
-	int	height;
-	int	width;
-	
-	game->imgs[0] = mlx_xpm_file_to_image(game->mlx, "images/floor.xpm", &width, &height);
+{	
+	game->imgs[0] = mlx_xpm_file_to_image(game->mlx, \
+	"images/floor.xpm", &game->width, &game->height);
 	if (!game->imgs[0])
 		error_print("oops, corrupted image of floor\n", game);
-	game->imgs[1] = mlx_xpm_file_to_image(game->mlx, "images/wall.xpm", &width, &height);
+	game->imgs[1] = mlx_xpm_file_to_image(game->mlx, \
+	"images/wall.xpm", &game->width, &game->height);
 	if (!game->imgs[1])
 		error_print("oops, corrupted image of wall\n", game);
-	game->imgs[2] = mlx_xpm_file_to_image(game->mlx, "images/player_right.xpm", &width, &height);
+	game->imgs[2] = mlx_xpm_file_to_image(game->mlx, \
+	"images/player_right.xpm", &game->width, &game->height);
 	if (!game->imgs[2])
 		error_print("oops, corrupted image of player_right\n", game);
-	game->imgs[3] = mlx_xpm_file_to_image(game->mlx, "images/player_left.xpm", &width, &height);
+	game->imgs[3] = mlx_xpm_file_to_image(game->mlx, \
+	"images/player_left.xpm", &game->width, &game->height);
 	if (!game->imgs[3])
 		error_print("oops, corrupted image of player_left\n", game);
-	game->imgs[4] = mlx_xpm_file_to_image(game->mlx, "images/gem.xpm", &width, &height);
+	game->imgs[4] = mlx_xpm_file_to_image(game->mlx, \
+	"images/gem.xpm", &game->width, &game->height);
 	if (!game->imgs[4])
 		error_print("oops, corrupted image of gem\n", game);
-	game->imgs[5] = mlx_xpm_file_to_image(game->mlx, "images/exit.xpm", &width, &height);
+	game->imgs[5] = mlx_xpm_file_to_image(game->mlx, \
+	"images/exit.xpm", &game->width, &game->height);
 	if (!game->imgs[5])
 		error_print("oops, corrupted image of exit\n", game);
 }
@@ -48,11 +51,14 @@ void render_elements(t_box *game)
 		while (++x < game->b_map)
 		{
 			if (game->map_store[y][x] == PLAYER)
-				mlx_put_image_to_window(game->mlx, game->mlx_win, game->imgs[3], x * 64, y * 64);
+				mlx_put_image_to_window(game->mlx, game->mlx_win, \
+				game->imgs[3], x * 64, y * 64);
 			if (game->map_store[y][x] == COIN)
-				mlx_put_image_to_window(game->mlx, game->mlx_win, game->imgs[4], x * 64, y * 64);
+				mlx_put_image_to_window(game->mlx, game->mlx_win, \
+				game->imgs[4], x * 64, y * 64);
 			if (game->map_store[y][x] == EXIT)
-				mlx_put_image_to_window(game->mlx, game->mlx_win, game->imgs[5], x * 64, y * 64);
+				mlx_put_image_to_window(game->mlx, game->mlx_win, \
+				game->imgs[5], x * 64, y * 64);
 		}
 	}
 }

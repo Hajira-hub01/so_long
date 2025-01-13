@@ -6,7 +6,7 @@
 /*   By: hajmoham <hajmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 18:41:46 by hajmoham          #+#    #+#             */
-/*   Updated: 2025/01/06 20:12:22 by hajmoham         ###   ########.fr       */
+/*   Updated: 2025/01/13 19:07:08 by hajmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,18 @@ typedef struct s_box
     int			b_map;
     int			l_map;
     int			player;
-    int			collectables;
-    int			dup_collectables;
+    int			collectibles;
+    int			dup_collectibles;
     int			exit;
+    int			exit_x;
+    int			exit_y;
 	int			moves;
 	int			direction;
     int			dup_exit;
     int			player_x;
     int			player_y;
+	int			height;
+	int			width;
 }	t_box;
 
 void    initialize(t_box *map);
@@ -77,5 +81,6 @@ void	rendermap(t_box *game);
 int		close_game(t_box *game);
 void	move(int new_x, int new_y, t_box *game);
 int		handle_keys(int key, t_box *game);
+void	print_map(t_box *map);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hajmoham <hajmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 16:05:31 by hajmoham          #+#    #+#             */
-/*   Updated: 2025/01/13 20:08:15 by hajmoham         ###   ########.fr       */
+/*   Updated: 2025/01/18 12:57:00 by hajmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,36 +65,37 @@ void	get_p_and_e(t_box *map)
 	}
 }
 
-void parcing(t_box *map, char **av)
+void	parcing(t_box *map, char **av)
 {
 	store_map(av, map);
-    if_rectangular(map);
-    check_walls(map);
-    check_elements(map);
+	if_rectangular(map);
+	check_walls(map);
+	check_elements(map);
 	get_p_and_e(map);
-    if (map->player != 1 || map->exit != 1 || map->collectibles < 1)
+	if (map->player != 1 || map->exit != 1 || map->collectibles < 1)
 		error_print("Wrong elements count\n", map);
-    map->dup_collectibles = map->collectibles;
-    flood_fill(map, map->player_x, map->player_y);
-    if (map->dup_collectibles || map->dup_exit)
+	map->dup_collectibles = map->collectibles;
+	flood_fill(map, map->player_x, map->player_y);
+	if (map->dup_collectibles || map->dup_exit)
 		error_print("No valid path found\n", map);
 }
 
-int main(int ac, char **av) 
+int	main(int ac, char **av)
 {
-    t_box game;
-	
-    initialize(&game);
+	t_box	game;
+
+	initialize(&game);
 	chk_ber(ac, av, &game);
 	check_images(get_images(), &game);
-    parcing(&game, av);
+	parcing(&game, av);
 	game.mlx = mlx_init();
-	game.mlx_win = mlx_new_window(game.mlx, game.b_map * 64, game.l_map * 64, "so_long");
+	game.mlx_win = mlx_new_window(game.mlx, game.b_map * 64, game.l_map * 64, \
+		"so_long");
 	create_album(&game);
 	rendermap(&game);
 	mlx_hook(game.mlx_win, 17, 0, close_game, &game);
 	mlx_hook(game.mlx_win, 2, 0, handle_keys, &game);
 	mlx_loop(game.mlx);
 	cleanup(&game);
-    return (0);
+	return (0);
 }

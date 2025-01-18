@@ -6,7 +6,7 @@
 /*   By: hajmoham <hajmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:28:54 by hajmoham          #+#    #+#             */
-/*   Updated: 2025/01/13 19:25:36 by hajmoham         ###   ########.fr       */
+/*   Updated: 2025/01/18 13:11:03 by hajmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,35 +40,6 @@ void	count_lines(t_box *map, char *av)
 	close(fd);
 	if (!map->l_map)
 		error_print("Empty map file\n", map);
-}
-
-/// @brief this is a function that stores the map in the struct
-// (map_store and map_dup)
-void	store_map(char **av, t_box *map)
-{
-	int	fd;
-	int	i;
-
-	fd = open(av[1], O_RDONLY);
-	if (fd == -1)
-		error_print("unable to open the file (;w;)\n", map);
-	count_lines(map, av[1]);
-	map->map_store = malloc(sizeof(char *) * (map->l_map + 1));
-	if (!map->map_store)
-		(close(fd), error_print("Malloc Failed\n", map));
-	map->map_dup = malloc(sizeof(char *) * (map->l_map + 1));
-	if (!map->map_dup)
-		(close(fd), error_print("Malloc of dup Failed\n", map));
-	i = 0;
-	while (i < map->l_map)
-	{
-		map->map_store[i] = ft_strdup_w_nl(get_next_line(fd));
-		map->map_dup[i] = ft_strdup(map->map_store[i]);
-		i++;
-	}
-	map->map_store[i] = NULL;
-	map->map_dup[i] = NULL;
-	close(fd);
 }
 
 /// @brief  updates the breadth of the map (b_map) & if its a rectangle
@@ -157,20 +128,3 @@ void	flood_fill(t_box *map, int x, int y)
 	flood_fill(map, x, y + 1);
 	flood_fill(map, x, y - 1);
 }
-	
-// void	flood_fill(t_box *map, int x, int y)
-// {
-// 	if (x < 0 || y < 0 || x >= map->l_map || y >= map->b_map)
-// 		return ;
-// 	if (map->map_dup[x][y] == '1' || map->map_dup[x][y] == 'H')
-// 		return ;
-// 	if (map->map_dup[x][y] == 'C')
-// 		map->dup_collectibles--;
-// 	if (map->map_dup[x][y] == 'E')
-// 		map->dup_exit--;
-// 	map->map_dup[x][y] = 'H';
-// 	flood_fill(map, x + 1, y);
-// 	flood_fill(map, x - 1, y);
-// 	flood_fill(map, x, y + 1);
-// 	flood_fill(map, x, y - 1);
-// }

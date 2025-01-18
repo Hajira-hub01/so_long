@@ -6,14 +6,14 @@
 /*   By: hajmoham <hajmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 20:03:44 by hajmoham          #+#    #+#             */
-/*   Updated: 2025/01/13 11:10:37 by hajmoham         ###   ########.fr       */
+/*   Updated: 2025/01/18 12:53:04 by hajmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 void	create_album(t_box *game)
-{	
+{
 	game->imgs[0] = mlx_xpm_file_to_image(game->mlx, \
 	"images/floor.xpm", &game->width, &game->height);
 	if (!game->imgs[0])
@@ -40,11 +40,12 @@ void	create_album(t_box *game)
 		error_print("oops, corrupted image of exit\n", game);
 }
 
-void render_elements(t_box *game)
+void	render_elements(t_box *game)
 {
-	int y = -1;
-	int x = -1;
-	
+	int	y;
+	int	x;
+
+	y = -1;
 	while (++y < game->l_map)
 	{
 		x = -1;
@@ -63,16 +64,17 @@ void render_elements(t_box *game)
 	}
 }
 
-char **get_images()
+char	**get_images(void)
 {
-	static char *str_img[7] = {
+	static char	*str_img[7] = {
 		"images/floor.xpm",
 		"images/wall.xpm",
 		"images/player_right.xpm",
 		"images/player_left.xpm",
 		"images/gem.xpm",
 		"images/exit.xpm", NULL
-		};
+	};
+
 	return (str_img);
 }
 
@@ -80,7 +82,7 @@ void	check_images(char **imgs, t_box *game)
 {
 	int	i;
 	int	fd;
-	
+
 	i = 0;
 	while (imgs[i])
 	{

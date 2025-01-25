@@ -6,7 +6,7 @@
 #    By: hajmoham <hajmoham@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 13:12:27 by hajmoham          #+#    #+#              #
-#    Updated: 2025/01/18 14:45:52 by hajmoham         ###   ########.fr        #
+#    Updated: 2025/01/25 14:10:35 by hajmoham         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,10 +46,12 @@ re: fclean all
 clean:
 	rm -rf $(OBJ)
 	make clean -C ./libft
+	make clean -C ./Printf
 	make clean -C ./mlx
 
 fclean: clean
 	rm -rf $(NAME)
 	make fclean -C ./libft
+	make fclean -C ./Printf
 
 .PHONY: clean fclean all re
